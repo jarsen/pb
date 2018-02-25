@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/blevesearch/bleve"
+	"github.com/jarsen/pb/db"
 	. "github.com/spf13/cobra"
 )
 
@@ -19,7 +20,7 @@ var listCmd = &Command{
 		queryString := strings.Join(args, " ")
 		query := bleve.NewQueryStringQuery(queryString)
 		searchRequest := bleve.NewSearchRequest(query)
-		index, initErr := initDB()
+		index, initErr := db.Init()
 		if initErr != nil {
 			log.Fatal(initErr)
 		}
@@ -34,7 +35,7 @@ var listCmd = &Command{
 			if err != nil {
 				log.Fatal(err)
 			}
-			image := Image{}
+			image := db.Image{}
 			if err := json.Unmarshal(buf, &image); err != nil {
 				log.Fatal(err)
 			}
