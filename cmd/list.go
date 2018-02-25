@@ -18,7 +18,9 @@ var listCmd = &Command{
 	Args:  MinimumNArgs(1),
 	Run: func(cmd *Command, args []string) {
 		queryString := strings.Join(args, " ")
-		query := bleve.NewQueryStringQuery(queryString)
+		// query := bleve.NewQueryStringQuery(queryString)
+		query := bleve.NewMatchQuery(queryString)
+		query.SetField("Description")
 		searchRequest := bleve.NewSearchRequest(query)
 		index, initErr := db.Init()
 		if initErr != nil {

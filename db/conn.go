@@ -4,7 +4,6 @@ import (
 	"path/filepath"
 
 	"github.com/blevesearch/bleve"
-	"github.com/blevesearch/bleve/analysis/lang/en"
 	"github.com/blevesearch/bleve/mapping"
 	homedir "github.com/mitchellh/go-homedir"
 )
@@ -21,11 +20,13 @@ func Init() (bleve.Index, error) {
 }
 
 func buildIndexMapping() mapping.IndexMapping {
-	indexMapping := bleve.NewIndexMapping()
+	enFieldMapping := bleve.NewTextFieldMapping()
+	enFieldMapping.Analyzer = "en"
+
 	imageMapping := bleve.NewDocumentMapping()
-	descriptionMapping := bleve.NewTextFieldMapping()
-	descriptionMapping.Analyzer = en.AnalyzerName
-	imageMapping.AddFieldMappingsAt("description", descriptionMapping)
-	indexMapping.AddDocumentMapping("image", imageMapping)
+	imageMapping.AddFieldMappingsAt("Description", enFieldMapping)
+
+	indexMapping := bleve.NewIndexMapping()
+	indexMapping.DefaultMapping = imageMapping
 	return indexMapping
 }
