@@ -26,7 +26,7 @@ var addCmd = &Command{
 
 		image := db.Image{
 			ID:          uuid.New().String(),
-			Url:         url,
+			URL:         url.String(),
 			Description: description,
 			Date:        time.Now(),
 		}

@@ -1,12 +1,13 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
 
 	"github.com/blevesearch/bleve"
+	_ "github.com/blevesearch/bleve/config"
+	"github.com/blevesearch/bleve/search/highlight/format/ansi"
 	"github.com/jarsen/pb/db"
 	. "github.com/spf13/cobra"
 )
@@ -18,10 +19,11 @@ var listCmd = &Command{
 	Args:  MinimumNArgs(1),
 	Run: func(cmd *Command, args []string) {
 		queryString := strings.Join(args, " ")
-		// query := bleve.NewQueryStringQuery(queryString)
 		query := bleve.NewMatchQuery(queryString)
 		query.SetField("Description")
 		searchRequest := bleve.NewSearchRequest(query)
+		searchRequest.Highlight = bleve.NewHighlightWithStyle(ansi.Name)
+		searchRequest.Fields = []string{"*"}
 		index, initErr := db.Init()
 		if initErr != nil {
 			log.Fatal(initErr)
@@ -31,17 +33,13 @@ var listCmd = &Command{
 			log.Fatal(err)
 		}
 		for _, hit := range results.Hits {
-			uuid := hit.ID
-			var buf []byte
-			buf, err = index.GetInternal([]byte(uuid))
-			if err != nil {
-				log.Fatal(err)
+			rv := ""
+			for _, fragments := range hit.Fragments {
+				for _, fragment := range fragments {
+					rv += fmt.Sprintf("%s", fragment)
+				}
 			}
-			image := db.Image{}
-			if err := json.Unmarshal(buf, &image); err != nil {
-				log.Fatal(err)
-			}
-			fmt.Println(image.Url)
+			fmt.Println(hit.Fields["URL"], rv)
 		}
 	},
 }
