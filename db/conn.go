@@ -10,7 +10,7 @@ import (
 
 func Init() (bleve.Index, error) {
 	home, _ := homedir.Dir()
-	dbPath := filepath.Join(home, ".pd.db")
+	dbPath := filepath.Join(home, ".pb")
 	index, err := bleve.Open(dbPath)
 	if err != nil {
 		indexMapping := buildIndexMapping()

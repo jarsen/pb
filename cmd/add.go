@@ -18,26 +18,31 @@ var addCmd = &Command{
 	Short: "add a link and some description text",
 	Args:  MinimumNArgs(2),
 	Run: func(cmd *Command, args []string) {
-		description := strings.Join(args[1:], " ")
-		url, err := url.Parse(args[0])
-		if err != nil {
-			log.Fatal("First argument must be a valid URL")
-		}
-
-		image := db.Image{
-			ID:          uuid.New().String(),
-			URL:         url.String(),
-			Description: description,
-			Date:        time.Now(),
-		}
-
-		var index bleve.Index
-		index, err = db.Init()
-		if err != nil {
-			log.Fatal(err)
-		}
-		image.AddTo(index)
+		addImage(args[0], args[1:])
 	},
+}
+
+func addImage(urlString string, descriptionTokens []string) {
+	description := strings.Join(descriptionTokens, " ")
+
+	var err error
+	if _, err = url.Parse(urlString); err != nil {
+		log.Fatal("First argument must be a valid URL")
+	}
+
+	image := db.Image{
+		ID:          uuid.New().String(),
+		URL:         urlString,
+		Description: description,
+		Date:        time.Now(),
+	}
+
+	var index bleve.Index
+	index, err = db.Init()
+	if err != nil {
+		log.Fatal(err)
+	}
+	image.AddTo(index)
 }
 
 func init() {
