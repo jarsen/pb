@@ -4,20 +4,17 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/spf13/cobra"
+	. "github.com/spf13/cobra"
 )
 
-var cfgFile string
-
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "pb",
-	Short: "pb - your own personal gif/meme database",
-	Long:  `Become the envy of your friends and colleagues as you organize and search your favorite memes and animated gifs using your terminal.`,
-
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+var rootCmd = &Command{
+	Use:   "pb [SEARCH_TERMS...]",
+	Short: "Copies the highest matching result to your system clipboard",
+	Long:  `pb - your own personal gif/meme databas.\nBecome the envy of your friends and colleagues as you organize and search your favorite memes and animated gifs from your terminal.`,
+	Args:  MinimumNArgs(1),
+	Run: func(cmd *Command, args []string) {
+		copyFirstSearchResult(args)
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

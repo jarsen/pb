@@ -14,33 +14,37 @@ import (
 
 var copyCmd = &cobra.Command{
 	Use:   "copy [SEARCH_TERMS..]",
-	Short: "Automatically copies the highest matching result to your system clipboard",
+	Short: "Copies the highest matching result to your system clipboard",
 	Run: func(cmd *cobra.Command, args []string) {
-		queryString := strings.Join(args, " ")
-		query := bleve.NewMatchQuery(queryString)
-		query.SetField("Description")
-		searchRequest := bleve.NewSearchRequest(query)
-		searchRequest.Highlight = bleve.NewHighlightWithStyle(ansi.Name)
-		searchRequest.Fields = []string{"*"}
-		index, initErr := db.Init()
-		if initErr != nil {
-			log.Fatal(initErr)
-		}
-		results, err := index.Search(searchRequest)
-		if err != nil {
-			log.Fatal(err)
-		}
-		topMatch := results.Hits[0]
-		rv := ""
-		for _, fragments := range topMatch.Fragments {
-			for _, fragment := range fragments {
-				rv += fmt.Sprintf("%s", fragment)
-			}
-		}
-		url := topMatch.Fields["URL"].(string)
-		fmt.Println(url, rv)
-		clipboard.WriteAll(url)
+		copyFirstSearchResult(args)
 	},
+}
+
+func copyFirstSearchResult(args []string) {
+	queryString := strings.Join(args, " ")
+	query := bleve.NewMatchQuery(queryString)
+	query.SetField("Description")
+	searchRequest := bleve.NewSearchRequest(query)
+	searchRequest.Highlight = bleve.NewHighlightWithStyle(ansi.Name)
+	searchRequest.Fields = []string{"*"}
+	index, initErr := db.Init()
+	if initErr != nil {
+		log.Fatal(initErr)
+	}
+	results, err := index.Search(searchRequest)
+	if err != nil {
+		log.Fatal(err)
+	}
+	topMatch := results.Hits[0]
+	rv := ""
+	for _, fragments := range topMatch.Fragments {
+		for _, fragment := range fragments {
+			rv += fmt.Sprintf("%s", fragment)
+		}
+	}
+	url := topMatch.Fields["URL"].(string)
+	fmt.Println(url, rv)
+	clipboard.WriteAll(url)
 }
 
 func init() {
