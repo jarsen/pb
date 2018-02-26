@@ -12,10 +12,10 @@ import (
 	. "github.com/spf13/cobra"
 )
 
-// listCmd represents the list command
-var listCmd = &Command{
-	Use:   "list [keywords*]",
-	Short: "list images from the database",
+// searchCmd represents the search command
+var searchCmd = &Command{
+	Use:   "search [keywords*]",
+	Short: "search images from the database",
 	Args:  MinimumNArgs(1),
 	Run: func(cmd *Command, args []string) {
 		queryString := strings.Join(args, " ")
@@ -45,5 +45,5 @@ var listCmd = &Command{
 }
 
 func init() {
-	rootCmd.AddCommand(listCmd)
+	rootCmd.AddCommand(searchCmd)
 }
