@@ -9,14 +9,18 @@ import (
 )
 
 func Init() (bleve.Index, error) {
-	home, _ := homedir.Dir()
-	dbPath := filepath.Join(home, ".pb")
+	dbPath := Path()
 	index, err := bleve.Open(dbPath)
 	if err != nil {
 		indexMapping := buildIndexMapping()
 		return bleve.New(dbPath, indexMapping)
 	}
 	return index, err
+}
+
+func Path() string {
+	home, _ := homedir.Dir()
+	return filepath.Join(home, ".pb")
 }
 
 func buildIndexMapping() mapping.IndexMapping {
