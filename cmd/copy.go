@@ -35,6 +35,10 @@ func copyFirstSearchResult(args []string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	if results.Total <= 0 {
+		fmt.Println("No matches found")
+		return
+	}
 	topMatch := results.Hits[0]
 	rv := ""
 	for _, fragments := range topMatch.Fragments {
