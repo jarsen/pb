@@ -14,17 +14,29 @@ var listCmd = &Command{
 	Short: "list all the database entries",
 	Args:  ExactArgs(0),
 	Run: func(cmd *Command, args []string) {
-		query := bleve.NewMatchAllQuery()
-		searchRequest := bleve.NewSearchRequest(query)
-		searchRequest.Fields = []string{"*"}
 		index, initErr := db.Init()
 		if initErr != nil {
 			log.Fatal(initErr)
 		}
-		results, err := index.Search(searchRequest)
+		query := bleve.NewMatchAllQuery()
+
+		sizeRequest := bleve.NewSearchRequest(query)
+		sizeRequest.Size = 0
+		results, err := index.Search(sizeRequest)
 		if err != nil {
 			log.Fatal(err)
 		}
+		size := results.Total
+
+		searchRequest := bleve.NewSearchRequest(query)
+		searchRequest.Fields = []string{"*"}
+		searchRequest.Size = int(size)
+		results, err = index.Search(searchRequest)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("%d results\n", size)
 		for _, hit := range results.Hits {
 			fmt.Printf("[%s] %s %s\n", hit.Fields["ID"], hit.Fields["URL"], hit.Fields["Description"])
 		}
