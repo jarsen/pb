@@ -29,7 +29,7 @@ Flags:
 Use "pb [command] --help" for more information about a command.
 ```
 
-## Todo
+## Todo / Feature Ideas
 
 - [x] Add entries
 - [x] Load entries from a file
@@ -43,3 +43,6 @@ Use "pb [command] --help" for more information about a command.
 - [ ] Better Usage documentation
 - [ ] Allow user to customize location of db on disk
 - [ ] Flags for fuzzy search
+- [ ] iTerm 2 (and others?) let you display images...
+- [ ] Command for downloading all the images to disk
+- [ ] Interactive command for adding images from a folder/tagging
