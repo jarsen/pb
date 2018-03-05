@@ -2,7 +2,9 @@
 
 PB is a simple CLI program that helps you store and search your favorite memes/gifs (or any URL, really).
 
-The name stands for Peanut Butter, even though personally I pronounce GIF with a hard G. It also sounds like DB.
+The name stands for Peanut Butter, even though personally I pronounce GIF with a hard G. It also sounds like DB. It's also a little bit of a riff on the OS X utility `pbcopy`, since the `pb copy` command will copy to the system clipboard.
+
+[![asciicast](https://asciinema.org/a/167213.png)](https://asciinema.org/a/167213)
 
 ```
 pb - your own personal gif/meme database.
