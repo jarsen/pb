@@ -31,6 +31,18 @@ Flags:
 Use "pb [command] --help" for more information about a command.
 ```
 
+## Installation
+
+```bash
+brew install go # You need to have go installed.
+# You need to set up a GOPATH. This is where go will put the executable binary.
+# (You will probably want to add it to your bashrc/zshrc)
+mkdir $HOME/go
+export GOPATH=$HOME/go
+# Finally, use go get to fetch the source and install it
+go get github.com/jarsen/pb
+```
+
 ## Todo / Feature Ideas
 
 - [x] Add entries
