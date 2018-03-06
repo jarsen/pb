@@ -50,9 +50,12 @@ go get github.com/jarsen/pb
 - [x] Search entries
 - [x] Find best match and copy to system clipboard
 - [x] List all entries
+- [ ] Dump all entries into a file (reverse load)
 - [ ] Flags to change formatting of how entries are displayed (show ID, etc)
 - [ ] Remove entries
 - [ ] Pick random entry
+- [ ] Track usage
+- [ ] List by LRU, MRU, etc.
 - [ ] Better README
 - [ ] Better Usage documentation
 - [ ] Allow user to customize location of db on disk
