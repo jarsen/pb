@@ -52,11 +52,11 @@ go get github.com/jarsen/pb
 - [x] List all entries
 - [ ] Dump all entries into a file (reverse load)
 - [ ] Flags to change formatting of how entries are displayed (show ID, etc)
-- [ ] Remove entries
+- [x] Remove entries
 - [ ] Pick random entry
 - [ ] Track usage
 - [ ] List by LRU, MRU, etc.
-- [ ] Better README
+- [x] Better README
 - [ ] Better Usage documentation
 - [ ] Allow user to customize location of db on disk
 - [ ] Flags for fuzzy search
