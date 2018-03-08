@@ -20,7 +20,7 @@ var copyCmd = &cobra.Command{
 	},
 }
 
-func copyFirstSearchResult(args []string) {
+func copyFirstSearchResult(args []string) string {
 	queryString := strings.Join(args, " ")
 	query := bleve.NewMatchQuery(queryString)
 	query.SetField("Description")
@@ -37,7 +37,7 @@ func copyFirstSearchResult(args []string) {
 	}
 	if results.Total <= 0 {
 		fmt.Println("No matches found")
-		return
+		return ""
 	}
 	topMatch := results.Hits[0]
 	rv := ""
@@ -49,6 +49,7 @@ func copyFirstSearchResult(args []string) {
 	url := topMatch.Fields["URL"].(string)
 	fmt.Println(url, rv)
 	clipboard.WriteAll(url)
+	return url
 }
 
 func init() {
