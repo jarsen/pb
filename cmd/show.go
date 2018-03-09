@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -23,38 +24,40 @@ var showCmd = &Command{
 			log.Fatal("Must have imgcat installed")
 		}
 		url := copyFirstSearchResult(args)
-		tempFile := downloadUrlToTempFile(url)
-		err = syscall.Exec(binary, []string{"imgcat", tempFile}, os.Environ())
+		filePath := tempFilePath(url)
+		_, err = downloadUrlToFile(url, filePath)
+		if err != nil {
+			log.Fatalf("Error downloading file: %s", err)
+		}
+		err = syscall.Exec(binary, []string{"imgcat", filePath}, os.Environ())
 		if err != nil {
 			log.Fatalf("Error showing image: %s", err)
 		}
 	},
 }
 
-func downloadUrlToTempFile(url string) string {
-	tmpPath := filepath.Join(os.TempDir(), path.Base(url))
-	out, err := os.Create(tmpPath)
+func tempFilePath(url string) string {
+	return filepath.Join(os.TempDir(), path.Base(url))
+}
+
+func downloadUrlToFile(url string, filePath string) (int64, error) {
+	out, err := os.Create(filePath)
 	if err != nil {
-		log.Fatal("error creating temp file")
+		return 0, err
 	}
 	defer out.Close()
 
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal("error downloading file")
+		return 0, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("bad status :%s", resp.Status)
+		return 0, fmt.Errorf("bad status :%s", resp.Status)
 	}
 
-	_, err = io.Copy(out, resp.Body)
-	if err != nil {
-		log.Fatalf("error copying file")
-	}
-
-	return tmpPath
+	return io.Copy(out, resp.Body)
 }
 
 func init() {

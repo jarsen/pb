@@ -61,5 +61,5 @@ go get github.com/jarsen/pb
 - [ ] Allow user to customize location of db on disk
 - [ ] Flags for fuzzy search
 - [ ] iTerm 2 (and others?) let you display images...
-- [ ] Command for downloading all the images to disk
+- [x] Command for downloading all the images to disk
 - [ ] Interactive command for adding images from a folder/tagging
