@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -58,8 +59,10 @@ var downloadCmd = &Command{
 	},
 }
 
-func filePathForURL(dir string, url string, unique int) string {
-	fileName := fmt.Sprintf("%d%s", unique, path.Base(url))
+func filePathForURL(dir string, urlStr string, unique int) string {
+	url, _ := url.Parse(urlStr)
+	urlFileName := path.Base(url.EscapedPath())
+	fileName := fmt.Sprintf("%d%s", unique, urlFileName)
 	return filepath.Join(dir, fileName)
 }
 
