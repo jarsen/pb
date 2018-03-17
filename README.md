@@ -7,10 +7,6 @@ The name stands for Peanut Butter, even though personally I pronounce GIF with a
 [![asciicast](https://asciinema.org/a/167213.png)](https://asciinema.org/a/167213)
 
 ```
-pb - your own personal gif/meme database.
-
-Become the envy of your friends and colleagues as you organize and search your favorite memes and animated gifs from your terminal.
-
 Usage:
   pb [SEARCH_TERMS...] [flags]
   pb [command]
@@ -18,17 +14,15 @@ Usage:
 Available Commands:
   add         add a link and some description text
   copy        Copies the highest matching result to your system clipboard
+  download    downloads all the image in the library to disk
+  dump        dump the database into the specified txt file
   help        Help about any command
   list        list all the database entries
   load        adds all the images from a given file to the database
   nuke        deletes the entire database
   rm          removes an entry from the database
   search      search images from the database
-
-Flags:
-  -h, --help   help for pb
-
-Use "pb [command] --help" for more information about a command.
+  show        shows the image for the top result and copies url to clipboard
 ```
 
 ## Installation
