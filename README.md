@@ -45,21 +45,12 @@ go get github.com/jarsen/pb
 
 ## Todo / Feature Ideas
 
-- [x] Add entries
-- [x] Load entries from a file
-- [x] Search entries
-- [x] Find best match and copy to system clipboard
-- [x] List all entries
-- [x] Dump all entries into a file (reverse load)
 - [ ] Flags to change formatting of how entries are displayed (show ID, etc)
-- [x] Remove entries
+- [ ] Remove entries with short id
 - [ ] Pick random entry
 - [ ] Track usage
 - [ ] List by LRU, MRU, etc.
-- [x] Better README
 - [ ] Better Usage documentation
 - [ ] Allow user to customize location of db on disk
 - [ ] Flags for fuzzy search
-- [x] iTerm 2 (and others?) let you display images...
-- [x] Command for downloading all the images to disk
 - [ ] Interactive command for adding images from a folder/tagging
