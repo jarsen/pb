@@ -1,8 +1,10 @@
-# PB - Personal gif/meme Database
+# PB - Personal gif/meme Catalog
 
-PB is a simple CLI program that helps you store and search your favorite memes/gifs (or any URL, really).
+PB is a simple CLI program that helps you catalog and intelligently search links to your favorite gifs, memes, etc.
 
-The name stands for Peanut Butter, even though personally I pronounce GIF with a hard G. It also sounds like DB. It's also a little bit of a riff on the OS X utility `pbcopy`, since the `pb copy` command will copy to the system clipboard.
+The name stands for Peanut Butter, even though personally I pronounce GIF with a hard G. It also sounds like DB (database). It's also a little bit of a riff on the OS X utility `pbcopy`, since the `pb copy` command will copy to the system clipboard.
+
+This project is for fun and personal use, so it's only been tested on OS X. Theoretically it should work elsewhere.
 
 [![asciicast](https://asciinema.org/a/167213.png)](https://asciinema.org/a/167213)
 
