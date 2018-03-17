@@ -50,7 +50,7 @@ go get github.com/jarsen/pb
 - [x] Search entries
 - [x] Find best match and copy to system clipboard
 - [x] List all entries
-- [ ] Dump all entries into a file (reverse load)
+- [x] Dump all entries into a file (reverse load)
 - [ ] Flags to change formatting of how entries are displayed (show ID, etc)
 - [x] Remove entries
 - [ ] Pick random entry
