@@ -50,3 +50,4 @@ go get github.com/jarsen/pb
 - [ ] Allow user to customize location of db on disk
 - [ ] Flags for fuzzy search
 - [ ] Interactive command for adding images from a folder/tagging
+- [ ] Look for and use `fzf` if its in the path. (see kubectx)
